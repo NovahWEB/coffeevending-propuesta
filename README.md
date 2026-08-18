@@ -34,9 +34,19 @@ llamados a la acción llevan a otra página o a abrir una conversación desde ce
 franja de tres campos —cuántos son, qué necesitan, dónde están— que es exactamente la
 información con la que se arma una propuesta.
 
+## La pieza que la hace distinta
+
+**«El día de una oficina»** — una curva del consumo de 7 a.m. a 6 p.m. con cinco momentos que se
+pueden tocar. No es decoración: es el argumento de venta de este negocio y de ningún otro. Explica
+por qué hacen falta cinco servicios y no uno, que es exactamente lo que la empresa ofrece.
+
+Y **la cotización responde mientras eliges**: 200 personas + café ≈ 420 tazas al día, con el
+supuesto impreso al lado. 🔴 Se estima CONSUMO, jamás precio — el precio es de ellos y no lo
+sabemos; publicar uno inventado sería la peor forma de perder una cuenta.
+
 ## Cómo está hecho
 
-HTML y CSS a mano, sin dependencias ni build. **204 KB en total**, una sola tipografía
+HTML, CSS y 5 KB de JavaScript a mano. Sin dependencias, sin build. **210 KB en total**, una sola tipografía
 (Archivo Variable, con eje de ancho: comprimida hace de display y en ancho normal hace de cuerpo).
 
 ```
@@ -44,6 +54,7 @@ index.html            14 KB
 assets/estilo.css     18 KB
 assets/archivo.woff2  87 KB
 assets/*.webp         81 KB   ← las mismas 3 fotos que su sitio sirve en 419 KB
+assets/pagina.js       5 KB
 ```
 
 ## Publicar cambios

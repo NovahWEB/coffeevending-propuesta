@@ -373,3 +373,112 @@ td.n { font-variant-numeric: tabular-nums; white-space: nowrap; }
  .acciones { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 2rem; }
 html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+/* ══ EL DÍA DE UNA OFICINA ═══════════════════════════════════════════════════
+   La pieza que hace que esto no sea una plantilla. La curva no adorna: explica por qué
+   hacen falta cinco servicios y no uno, que es literalmente lo que la empresa vende. */
+.dia { padding-block: clamp(3.5rem, 8vw, 6rem); }
+.dia__caja { margin-top: 2.6rem; }
+
+.curva { margin: 0; }
+.curva svg { width: 100%; height: clamp(200px, 26vw, 290px); display: block; overflow: visible; }
+.curva__rejilla line { stroke: var(--linea-tinta); stroke-width: 1; }
+.curva__horas text {
+  fill: var(--sobre-tinta-2); font-size: 13px; text-anchor: middle;
+  font-family: var(--cuerpo); letter-spacing: .04em;
+}
+.curva__linea { stroke: var(--canela-viva); stroke-width: 2.5; stroke-linecap: round; }
+.curva__area { opacity: 0; }
+
+/* La curva se dibuja sola al entrar en pantalla. Es el único movimiento de la página y dura
+   1,2 s: lo justo para que se lea como «esto es un dato que se despliega» y no como un truco. */
+.curva__linea { stroke-dasharray: 1400; stroke-dashoffset: 1400; }
+.dia.is-visible .curva__linea { transition: stroke-dashoffset 1.2s cubic-bezier(.4,0,.2,1); stroke-dashoffset: 0; }
+.dia.is-visible .curva__area { transition: opacity .7s ease .6s; opacity: 1; }
+
+.punto {
+  fill: var(--tinta); stroke: var(--canela-viva); stroke-width: 2.5;
+  cursor: pointer; transition: r .2s ease, fill .2s ease;
+}
+.punto:hover, .punto.is-activo { fill: var(--canela-viva); r: 9; }
+.curva__pie { font-size: .78rem; color: var(--sobre-tinta-2); margin-top: .5rem; opacity: .8; }
+
+.momentos { margin-top: 2rem; }
+.momentos__botones {
+  display: flex; flex-wrap: wrap; gap: 1px;
+  background: var(--linea-tinta); border: 1px solid var(--linea-tinta);
+}
+.momento-b {
+  flex: 1 1 8rem; background: var(--tinta); border: 0; cursor: pointer;
+  font: inherit; color: var(--sobre-tinta-2); text-align: left;
+  padding: .9rem 1rem; display: flex; flex-direction: column; gap: .15rem;
+  transition: background .18s ease, color .18s ease;
+  /* Sin esto el borde superior salta al activarse y toda la fila se mueve un pixel. */
+  border-top: 2px solid transparent;
+}
+.momento-b:hover { background: color-mix(in srgb, var(--canela-viva) 12%, var(--tinta)); color: var(--sobre-tinta); }
+.momento-b.is-activo { background: color-mix(in srgb, var(--canela-viva) 16%, var(--tinta)); color: var(--sobre-tinta); border-top-color: var(--canela-viva); }
+.momento-b__h {
+  font-family: var(--display); font-variation-settings: 'wdth' 84; font-weight: 800;
+  font-size: 1.25rem; line-height: 1; font-variant-numeric: tabular-nums;
+}
+.momento-b.is-activo .momento-b__h { color: var(--canela-viva); }
+.momento-b__q { font-size: .8rem; letter-spacing: .04em; }
+
+.momento-d { padding-top: 1.6rem; min-height: 7rem; }
+.momento-d__s {
+  font-family: var(--display); font-variation-settings: 'wdth' 78; font-weight: 800;
+  font-size: clamp(1.4rem, 1.05rem + 1.5vw, 2.1rem); line-height: 1.05;
+  margin: 0 0 .6rem; max-width: 24ch;
+}
+.momento-d__t { color: var(--sobre-tinta-2); max-width: 46rem; margin: 0; }
+
+/* ══ LA COTIZACIÓN QUE RESPONDE ══════════════════════════════════════════════ */
+.estimado {
+  margin-top: 1.1rem; padding: 1rem 1.15rem;
+  border: 1px solid var(--linea); border-left: 3px solid var(--canela);
+  background: var(--papel); border-radius: 2px;
+}
+.estimado__n {
+  font-family: var(--display); font-variation-settings: 'wdth' 80; font-weight: 800;
+  font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.3rem); line-height: 1;
+  color: var(--canela); font-variant-numeric: tabular-nums;
+}
+.estimado__q { font-size: .95rem; margin: .35rem 0 0; }
+.estimado__sup { font-size: .78rem; color: var(--texto-2); margin: .6rem 0 0; line-height: 1.45; }
+
+/* ══ GRANO DE PAPEL ══════════════════════════════════════════════════════════
+   Su paleta es de papel y la pide. Es una textura SVG de 1 KB en el CSS, no una imagen:
+   pesa nada y no hay una petición más. */
+body::before {
+  content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: .5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23g)' opacity='.045'/%3E%3C/svg%3E");
+}
+main, header, footer { position: relative; z-index: 1; }
+
+/* ══ VAPOR ═══════════════════════════════════════════════════════════════════
+   Un solo gesto en toda la página, sobre el hero. Se apaga con prefers-reduced-motion. */
+.vapor { position: absolute; right: 12%; bottom: 0; width: 220px; height: 300px; pointer-events: none; opacity: .5; }
+.vapor span {
+  position: absolute; bottom: 0; width: 46px; height: 46px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(244,235,221,.32) 0%, transparent 70%);
+  animation: subir 7s ease-in infinite;
+}
+.vapor span:nth-child(1) { left: 20%;  animation-delay: 0s; }
+.vapor span:nth-child(2) { left: 45%;  animation-delay: 2.3s; }
+.vapor span:nth-child(3) { left: 68%;  animation-delay: 4.6s; }
+@keyframes subir {
+  0%   { transform: translateY(0) scale(.7); opacity: 0; }
+  25%  { opacity: .8; }
+  100% { transform: translateY(-260px) scale(2.2); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .vapor { display: none; } }
+
+/* Escala tipográfica con más confianza: el titular era correcto y tímido. */
+h1.display { font-size: clamp(3.1rem, 1.5rem + 6.6vw, 6.4rem); }
+h2.display { font-size: clamp(2.1rem, 1.3rem + 3.2vw, 3.8rem); }
+
+@media (max-width: 40rem) {
+  .momento-b { flex: 1 1 45%; }
+  .curva svg { height: 190px; }
+}

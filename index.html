@@ -56,6 +56,7 @@
   <section class="portada on-tinta">
     <div class="portada__foto" style="background-image:url('assets/hero.webp')"></div>
     <div class="portada__velo"></div>
+    <div class="vapor" aria-hidden="true"><span></span><span></span><span></span></div>
     <div class="wrap portada__in">
       <p class="rotulo">Café, snacks y agua para oficinas en Panamá</p>
       <h1 class="display">Que nadie en tu oficina tenga que salir por un café.</h1>
@@ -109,6 +110,11 @@
             <input id="donde" name="donde" type="text" placeholder="Ciudad o provincia" autocomplete="address-level2">
           </div>
         </div>
+        <div class="estimado" aria-live="polite">
+          <span class="estimado__n"></span>
+          <p class="estimado__q"></p>
+          <p class="estimado__sup"></p>
+        </div>
         <button class="btn btn--fuerte" type="submit">Ver mi propuesta <span class="flecha" aria-hidden="true">→</span></button>
         <p class="cotiza__nota respuesta" hidden>
           En el sitio real, esto le llega al equipo comercial con los tres datos ya puestos.
@@ -156,6 +162,99 @@
           <p>Dispensadores sin garrafón, con filtros y mantenimiento incluidos.</p>
           <span class="servicio__mas">Cotizar <span aria-hidden="true">→</span></span>
         </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ EL DÍA DE UNA OFICINA ══════════════════════════════════ -->
+  <section class="dia on-tinta" id="dia" aria-labelledby="dia-titulo">
+    <div class="wrap">
+      <p class="rotulo">La idea</p>
+      <h2 class="display" id="dia-titulo">Una oficina no consume parejo. Tiene horas.</h2>
+      <p class="lead">
+        Por eso no alcanza con una máquina de café. Cada momento del día pide algo distinto —
+        y si falta justo a esa hora, la gente sale a buscarlo.
+      </p>
+
+      <div class="dia__caja">
+        <!--
+          La curva NO es decoración: es el argumento. Muestra por qué hacen falta cinco
+          servicios y no uno, que es exactamente lo que este negocio vende.
+          Se dibuja a mano en SVG — sin librerías, sin peso.
+        -->
+        <figure class="curva">
+          <svg viewBox="0 0 900 260" role="img"
+               aria-label="Curva del consumo de una oficina a lo largo del día: pico al llegar, media mañana, almuerzo, la caída de las tres de la tarde, y el cierre."
+               preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="relleno" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="var(--canela-viva)" stop-opacity=".38"/>
+                <stop offset="100%" stop-color="var(--canela-viva)" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+
+            <!-- Rejilla horaria. Sutil: orienta sin competir con la curva. -->
+            <g class="curva__rejilla" aria-hidden="true">
+              <line x1="60"  y1="18" x2="60"  y2="210"/><line x1="228" y1="18" x2="228" y2="210"/>
+              <line x1="396" y1="18" x2="396" y2="210"/><line x1="564" y1="18" x2="564" y2="210"/>
+              <line x1="732" y1="18" x2="732" y2="210"/><line x1="852" y1="18" x2="852" y2="210"/>
+            </g>
+
+            <path class="curva__area" fill="url(#relleno)"
+              d="M20,190 C60,60 90,52 130,60 C170,68 190,150 228,120 C270,88 300,72 340,80
+                 C390,90 400,175 440,170 C500,162 520,120 564,110 C610,100 640,58 690,52
+                 C740,46 760,120 800,150 C830,172 860,186 880,192 L880,220 L20,220 Z"/>
+            <path class="curva__linea" fill="none"
+              d="M20,190 C60,60 90,52 130,60 C170,68 190,150 228,120 C270,88 300,72 340,80
+                 C390,90 400,175 440,170 C500,162 520,120 564,110 C610,100 640,58 690,52
+                 C740,46 760,120 800,150 C830,172 860,186 880,192"/>
+
+            <g class="curva__horas" aria-hidden="true">
+              <text x="60"  y="240">7 a.m.</text><text x="228" y="240">10 a.m.</text>
+              <text x="396" y="240">12 m.</text><text x="564" y="240">2 p.m.</text>
+              <text x="732" y="240">4 p.m.</text><text x="852" y="240">6 p.m.</text>
+            </g>
+
+            <g class="curva__puntos">
+              <circle class="punto" data-momento="0" cx="122" cy="59"  r="7"/>
+              <circle class="punto" data-momento="1" cx="336" cy="80"  r="7"/>
+              <circle class="punto" data-momento="2" cx="440" cy="170" r="7"/>
+              <circle class="punto" data-momento="3" cx="686" cy="52"  r="7"/>
+              <circle class="punto" data-momento="4" cx="820" cy="163" r="7"/>
+            </g>
+          </svg>
+          <figcaption class="curva__pie">
+            Patrón ilustrativo del ritmo de una oficina. No son datos de medición de
+            Coffee&nbsp;&amp;&nbsp;Vending.
+          </figcaption>
+        </figure>
+
+        <!-- Los cinco momentos. Botones de verdad: se llega con el tabulador y se opera con
+             el teclado, no solo con el mouse. -->
+        <div class="momentos">
+          <div class="momentos__botones" role="tablist" aria-label="Momentos del día">
+            <button class="momento-b is-activo" role="tab" aria-selected="true" aria-controls="momento-detalle" data-momento="0">
+              <span class="momento-b__h">7:45</span><span class="momento-b__q">Llegada</span>
+            </button>
+            <button class="momento-b" role="tab" aria-selected="false" aria-controls="momento-detalle" data-momento="1">
+              <span class="momento-b__h">10:30</span><span class="momento-b__q">Media mañana</span>
+            </button>
+            <button class="momento-b" role="tab" aria-selected="false" aria-controls="momento-detalle" data-momento="2">
+              <span class="momento-b__h">12:30</span><span class="momento-b__q">Almuerzo</span>
+            </button>
+            <button class="momento-b" role="tab" aria-selected="false" aria-controls="momento-detalle" data-momento="3">
+              <span class="momento-b__h">15:00</span><span class="momento-b__q">La caída</span>
+            </button>
+            <button class="momento-b" role="tab" aria-selected="false" aria-controls="momento-detalle" data-momento="4">
+              <span class="momento-b__h">17:30</span><span class="momento-b__q">Cierre</span>
+            </button>
+          </div>
+
+          <div class="momento-d" id="momento-detalle" role="tabpanel" aria-live="polite">
+            <p class="momento-d__s"></p>
+            <p class="momento-d__t"></p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -293,5 +392,6 @@
   </div>
 </footer>
 
+<script src="assets/pagina.js" defer></script>
 </body>
 </html>
