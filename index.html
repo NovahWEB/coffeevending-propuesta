@@ -65,7 +65,7 @@
         en la ciudad y en el interior del país.
       </p>
       <div class="acciones">
-        <a class="btn btn--fuerte" href="#cotizar">Cotizar para mi oficina <span class="flecha" aria-hidden="true">→</span></a>
+        <a class="btn btn--fuerte" href="#calcular">Cotizar para mi oficina <span class="flecha" aria-hidden="true">→</span></a>
         <a class="btn btn--linea" href="#servicios">Ver los cinco servicios</a>
       </div>
 
@@ -78,49 +78,76 @@
     </div>
   </section>
 
-  <!-- ═══ COTIZAR ════════════════════════════════════════════════ -->
-  <section class="cotiza seccion--apretada" id="cotizar">
-    <div class="wrap cotiza__in">
-      <div>
-        <p class="rotulo">Empezar</p>
-        <h2 class="display">Cotiza en tres datos.</h2>
-        <p class="cotiza__nota">
-          Con cuántos son, qué necesitan y dónde están alcanza para armarte una propuesta.
-          Sin reuniones para llegar a eso.
-        </p>
+  <!-- ═══ LA CALCULADORA ══════════════════════════════════════════
+       Mecánica copiada de la calculadora de ROI de 365 Retail Markets
+       (365retailmarkets.com/roi-calculator-upgrading-vending), que es la ÚNICA página
+       verificada del rubro donde alguien mete dos números y recibe una cifra sin dar
+       el correo primero: dos campos → tres resultados → ramificación a producto →
+       el correo se pide DESPUÉS.
+
+       La base de cálculo sale de los tramos que Crafty publica abiertamente
+       (craftydelivers.com/insights/cost-per-employee-office-pantry-tiers). Acá el tramo
+       lo elige el visitante: así el número es SUYO y no una tarifa de Coffee & Vending
+       que nadie nos dio. -->
+  <section class="calc" id="calcular">
+    <div class="wrap">
+      <p class="rotulo">La cuenta</p>
+      <h2 class="display">Dos datos y ves tu número.</h2>
+      <p class="lead calc__lead">
+        Sin formulario previo. Si el número te cierra, al final nos escribes — no al revés.
+      </p>
+
+      <div class="calc__caja">
+        <div class="calc__campos">
+          <div class="campo campo--grande">
+            <label for="c-gente">Cuántos colaboradores</label>
+            <input id="c-gente" type="number" inputmode="numeric" min="5" max="2000" step="5" value="60">
+            <input id="c-gente-r" class="deslizador" type="range" min="5" max="500" step="5" value="60"
+                   aria-label="Cuántos colaboradores, deslizador">
+          </div>
+          <div class="campo campo--grande">
+            <label for="c-nivel">Qué tan completo</label>
+            <select id="c-nivel">
+              <option value="1.75">Solo café — lo básico bien hecho</option>
+              <option value="3.25" selected>Café y snacks — lo que pide la mayoría</option>
+              <option value="5.50">Todo: café, snacks, soda y agua</option>
+              <option value="8.00">MicroMarket completo, abierto 24/7</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Tres resultados a la vez, no uno. En 365 el del medio es el que vende y los
+             otros dos existen para darle credibilidad. Acá el del medio es el costo por
+             persona al día, que es la cifra con la que un jefe de operaciones compara. -->
+        <div class="calc__salidas" aria-live="polite">
+          <div class="salida">
+            <span class="salida__n" data-out="dia">—</span>
+            <span class="salida__q">consumos al día</span>
+            <span class="salida__d">Lo que tu equipo va a usar de verdad</span>
+          </div>
+          <div class="salida salida--fuerte">
+            <span class="salida__n" data-out="persona">—</span>
+            <span class="salida__q">por persona, al día</span>
+            <span class="salida__d">La cifra con la que se compara cualquier propuesta</span>
+          </div>
+          <div class="salida">
+            <span class="salida__n" data-out="mes">—</span>
+            <span class="salida__q">al mes, estimado</span>
+            <span class="salida__d">Sobre 22 días laborables</span>
+          </div>
+        </div>
+
+        <p class="calc__sup" data-out="supuesto"></p>
+
+        <div class="calc__pie">
+          <a class="btn btn--fuerte" href="#contacto">Quiero mi propuesta con estos números <span class="flecha" aria-hidden="true">→</span></a>
+          <a class="btn btn--linea" href="tel:+5073936333">O llamar: +507 393-6333</a>
+        </div>
       </div>
-      <form onsubmit="event.preventDefault(); this.querySelector('.respuesta').hidden = false;">
-        <div class="campos">
-          <div class="campo">
-            <label for="gente">Cuántas personas</label>
-            <select id="gente" name="gente">
-              <option>Menos de 25</option><option>25 a 75</option>
-              <option>75 a 200</option><option>Más de 200</option>
-            </select>
-          </div>
-          <div class="campo">
-            <label for="que">Qué necesitas</label>
-            <select id="que" name="que">
-              <option>Café</option><option>Snacks y bebidas</option><option>Soda</option>
-              <option>Agua purificada</option><option>MicroMarket</option><option>Todo</option>
-            </select>
-          </div>
-          <div class="campo">
-            <label for="donde">Dónde están</label>
-            <input id="donde" name="donde" type="text" placeholder="Ciudad o provincia" autocomplete="address-level2">
-          </div>
-        </div>
-        <div class="estimado" aria-live="polite">
-          <span class="estimado__n"></span>
-          <p class="estimado__q"></p>
-          <p class="estimado__sup"></p>
-        </div>
-        <button class="btn btn--fuerte" type="submit">Ver mi propuesta <span class="flecha" aria-hidden="true">→</span></button>
-        <p class="cotiza__nota respuesta" hidden>
-          En el sitio real, esto le llega al equipo comercial con los tres datos ya puestos.
-          Mientras tanto: <a href="tel:+5073936333">+507 393-6333</a>.
-        </p>
-      </form>
+
+      <!-- El resultado se ramifica en catálogo, igual que en 365: del número al servicio
+           concreto, no de vuelta al menú. -->
+      <p class="calc__rama" data-out="rama"></p>
     </div>
   </section>
 
@@ -132,36 +159,99 @@
       <p class="lead">Cada una se instala, se abastece y se mantiene por nuestra cuenta. Nadie de tu equipo compra insumos ni llama al técnico.</p>
 
       <div class="servicios">
-        <a class="servicio" href="#cotizar">
+        <a class="servicio" href="#calcular">
+          <img class="servicio__f" src="assets/s-cafe.webp" alt="Máquina de café de grano a taza instalada en la cocina de una oficina" loading="lazy" decoding="async" width="760" height="507">
           <span class="servicio__n">01</span>
           <h3 class="display">Café</h3>
-          <p>Máquinas de grano a taza con café recién preparado durante toda la jornada.</p>
-          <span class="servicio__mas">Cotizar <span aria-hidden="true">→</span></span>
+          <p>Grano a taza, recién preparado toda la jornada. Nadie compra insumos ni llama al técnico.</p>
+          <span class="servicio__mas">Calcular <span aria-hidden="true">→</span></span>
         </a>
-        <a class="servicio" href="#cotizar">
+        <a class="servicio" href="#calcular">
+          <img class="servicio__f" src="assets/s-snack.webp" alt="Máquina de snacks surtida en un área común de oficina" loading="lazy" decoding="async" width="760" height="507">
           <span class="servicio__n">02</span>
           <h3 class="display">Snacks</h3>
-          <p>Vending surtido según el tamaño del equipo y lo que de verdad consume.</p>
-          <span class="servicio__mas">Cotizar <span aria-hidden="true">→</span></span>
+          <p>Surtido según el tamaño del equipo y lo que de verdad consume.</p>
+          <span class="servicio__mas">Calcular <span aria-hidden="true">→</span></span>
         </a>
-        <a class="servicio" href="#cotizar">
+        <a class="servicio" href="#calcular">
+          <img class="servicio__f" src="assets/s-soda.webp" alt="Refrigerador de bebidas frías en una oficina" loading="lazy" decoding="async" width="760" height="507">
           <span class="servicio__n">03</span>
           <h3 class="display">Soda</h3>
-          <p>Bebidas frías con reposición programada. Cobro en efectivo, tarjeta o Yappy.</p>
-          <span class="servicio__mas">Cotizar <span aria-hidden="true">→</span></span>
+          <p>Bebidas frías con reposición programada. Efectivo, tarjeta o Yappy.</p>
+          <span class="servicio__mas">Calcular <span aria-hidden="true">→</span></span>
         </a>
-        <a class="servicio" href="#cotizar">
+        <a class="servicio" href="#calcular">
+          <img class="servicio__f" src="assets/micro.webp" alt="MicroMarket con estantes de snacks y bebidas junto a una zona de mesas" loading="lazy" decoding="async" width="900" height="600">
           <span class="servicio__n">04</span>
           <h3 class="display">MicroMarket</h3>
-          <p>Una tienda abierta dentro de la oficina, con autopago y más variedad que una máquina.</p>
-          <span class="servicio__mas">Cotizar <span aria-hidden="true">→</span></span>
+          <p>Una tienda abierta dentro de la oficina, con autopago. Abierta cuando tu gente lo esté.</p>
+          <span class="servicio__mas">Calcular <span aria-hidden="true">→</span></span>
         </a>
-        <a class="servicio" href="#cotizar">
+        <a class="servicio" href="#calcular">
+          <img class="servicio__f" src="assets/s-agua.webp" alt="Dispensador de agua purificada sin garrafón en una oficina" loading="lazy" decoding="async" width="760" height="507">
           <span class="servicio__n">05</span>
           <h3 class="display">Agua purificada</h3>
-          <p>Dispensadores sin garrafón, con filtros y mantenimiento incluidos.</p>
-          <span class="servicio__mas">Cotizar <span aria-hidden="true">→</span></span>
+          <p>Sin garrafón, con filtros y mantenimiento incluidos.</p>
+          <span class="servicio__mas">Calcular <span aria-hidden="true">→</span></span>
         </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ LO QUE HAY HOY ══════════════════════════════════════════
+       Nombrar al enemigo, como hace Bevi con la botella plástica y el enfriador
+       tradicional (bevi.co). Acá el enemigo real de este negocio no es otro proveedor:
+       es la cafetera del piso y el que baja a la esquina. -->
+  <section class="seccion enemigo" id="comparar">
+    <div class="wrap">
+      <p class="rotulo">Contra qué compite</p>
+      <h2 class="display">Casi nadie compara proveedores. Comparan con lo que ya tienen.</h2>
+      <p class="lead">Y lo que ya tienen suele ser una cafetera que alguien compró hace años y un rato perdido cada tarde.</p>
+
+      <div class="tabla-caja">
+        <table class="comparar">
+          <caption class="oculto">Comparación entre la cafetera de oficina, salir a comprar y el servicio</caption>
+          <thead>
+            <tr>
+              <th scope="col">Lo de siempre</th>
+              <th scope="col">La cafetera del piso</th>
+              <th scope="col">Bajar a la esquina</th>
+              <th scope="col" class="es-nuestro">Con servicio</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Quién compra el insumo</th>
+              <td>Alguien de administración, cuando se acuerda</td>
+              <td>Cada quien, de su bolsillo</td>
+              <td class="es-nuestro">Nosotros, antes de que se acabe</td>
+            </tr>
+            <tr>
+              <th scope="row">Cuando se daña</th>
+              <td>Se busca técnico y se cotiza</td>
+              <td>—</td>
+              <td class="es-nuestro">Lo resolvemos nosotros</td>
+            </tr>
+            <tr>
+              <th scope="row">Tiempo que se va</th>
+              <td>El de quien la limpia y la surte</td>
+              <td>15 a 20 minutos por salida</td>
+              <td class="es-nuestro">Ninguno de tu equipo</td>
+            </tr>
+            <tr>
+              <th scope="row">Qué hay a las 3 p.m.</th>
+              <td>Lo que sobró de la mañana</td>
+              <td>Lo que haya abierto</td>
+              <td class="es-nuestro">Lo mismo que a las 8</td>
+            </tr>
+            <tr>
+              <th scope="row">Fuera de la capital</th>
+              <td>Igual, pero sin técnico cerca</td>
+              <td>Depende de dónde quede</td>
+              <td class="es-nuestro">Mismo servicio en todo el país</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </section>
@@ -308,6 +398,26 @@
     </div>
   </section>
 
+  <!-- ═══ NÚMEROS DE OPERACIÓN ═══════════════════════════════════
+       Canteen usa cifras por LÍNEA de negocio y corona con la retención (98%): en un
+       servicio recurrente, retención pesa más que tamaño. Y los dígitos exactos leen
+       más creíbles que los redondeados (Crafty: «25,881 hours saved»).
+       Las tres primeras salen de su sitio. Las otras dos se PIDEN: inventarlas sería
+       lo único capaz de costar la cuenta. -->
+  <section class="seccion seccion--apretada">
+    <div class="wrap">
+      <p class="rotulo">La operación</p>
+      <h2 class="display">Lo que sostiene el servicio.</h2>
+      <div class="cifras">
+        <div class="cifra"><span class="cifra__n">2002</span><span class="cifra__q">operando en Panamá desde</span></div>
+        <div class="cifra"><span class="cifra__n">5</span><span class="cifra__q">servicios con un solo proveedor</span></div>
+        <div class="cifra"><span class="cifra__n">País</span><span class="cifra__q">cobertura completa, no solo la capital</span></div>
+        <div class="cifra cifra--pide"><span class="cifra__n">— %</span><span class="cifra__q">retención de clientes · el número más fuerte que puede dar un servicio recurrente, y hace falta el real</span></div>
+        <div class="cifra cifra--pide"><span class="cifra__n">—</span><span class="cifra__q">oficinas atendidas hoy · con el dígito exacto, no redondeado</span></div>
+      </div>
+    </div>
+  </section>
+
   <!-- ═══ COBERTURA ══════════════════════════════════════════════ -->
   <section class="seccion" id="cobertura">
     <div class="wrap dos">
@@ -318,7 +428,7 @@
           La mayoría de los acuerdos de café y snacks se limitan a la ciudad. El nuestro no:
           misma instalación, mismo reabastecimiento y mismo soporte técnico en todo el país.
         </p>
-        <a class="btn btn--linea" href="#cotizar">Preguntar por mi provincia</a>
+        <a class="btn btn--linea" href="#calcular">Preguntar por mi provincia</a>
       </div>
       <figure class="figura">
         <img src="assets/micro.webp" alt="MicroMarket instalado en una oficina: estantes con snacks y bebidas junto a una zona de mesas" loading="lazy" decoding="async" width="760" height="507">
@@ -335,12 +445,12 @@
       <p class="lead">Escribimos sobre las preguntas que nos hacen antes de firmar. Sin vender nada.</p>
 
       <ul class="notas" role="list">
-        <li><a href="#cotizar"><span class="nota__t">Cómo elegir una máquina de snacks según el tamaño de tu equipo</span><span class="nota__q">Snacks</span></a></li>
-        <li><a href="#cotizar"><span class="nota__t">Cómo planificar un MicroMarket para tu oficina</span><span class="nota__q">MicroMarket</span></a></li>
-        <li><a href="#cotizar"><span class="nota__t">Efectivo, tarjeta o Yappy: cómo funciona el pago en una máquina de soda</span><span class="nota__q">Soda</span></a></li>
-        <li><a href="#cotizar"><span class="nota__t">Dispensadores de agua sin garrafón: qué debe evaluar tu empresa</span><span class="nota__q">Agua</span></a></li>
-        <li><a href="#cotizar"><span class="nota__t">Filtros y mantenimiento de un dispensador de agua sin garrafón</span><span class="nota__q">Agua</span></a></li>
-        <li><a href="#cotizar"><span class="nota__t">Agua fría, caliente o al tiempo: qué necesita una oficina</span><span class="nota__q">Agua</span></a></li>
+        <li><a href="#calcular"><span class="nota__t">Cómo elegir una máquina de snacks según el tamaño de tu equipo</span><span class="nota__q">Snacks</span></a></li>
+        <li><a href="#calcular"><span class="nota__t">Cómo planificar un MicroMarket para tu oficina</span><span class="nota__q">MicroMarket</span></a></li>
+        <li><a href="#calcular"><span class="nota__t">Efectivo, tarjeta o Yappy: cómo funciona el pago en una máquina de soda</span><span class="nota__q">Soda</span></a></li>
+        <li><a href="#calcular"><span class="nota__t">Dispensadores de agua sin garrafón: qué debe evaluar tu empresa</span><span class="nota__q">Agua</span></a></li>
+        <li><a href="#calcular"><span class="nota__t">Filtros y mantenimiento de un dispensador de agua sin garrafón</span><span class="nota__q">Agua</span></a></li>
+        <li><a href="#calcular"><span class="nota__t">Agua fría, caliente o al tiempo: qué necesita una oficina</span><span class="nota__q">Agua</span></a></li>
       </ul>
     </div>
   </section>
@@ -353,7 +463,7 @@
         <h2 class="display">Cuéntanos cuántos son y dónde están.</h2>
         <p class="lead">Con eso alcanza para armarte una propuesta.</p>
         <div class="acciones">
-          <a class="btn btn--fuerte" href="#cotizar">Cotizar <span class="flecha" aria-hidden="true">→</span></a>
+          <a class="btn btn--fuerte" href="#calcular">Cotizar <span class="flecha" aria-hidden="true">→</span></a>
           <a class="btn btn--linea" href="tel:+5073936333">Llamar ahora</a>
         </div>
       </div>
@@ -393,5 +503,6 @@
 </footer>
 
 <script src="assets/pagina.js" defer></script>
+<script src="assets/calculadora.js" defer></script>
 </body>
 </html>

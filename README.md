@@ -34,27 +34,43 @@ llamados a la acción llevan a otra página o a abrir una conversación desde ce
 franja de tres campos —cuántos son, qué necesitan, dónde están— que es exactamente la
 información con la que se arma una propuesta.
 
-## La pieza que la hace distinta
+## De dónde salen las decisiones
 
-**«El día de una oficina»** — una curva del consumo de 7 a.m. a 6 p.m. con cinco momentos que se
-pueden tocar. No es decoración: es el argumento de venta de este negocio y de ningún otro. Explica
-por qué hacen falta cinco servicios y no uno, que es exactamente lo que la empresa ofrece.
+Se investigaron los sitios de los líderes del sector en EE.UU. (365 Retail Markets, Crafty,
+Cantaloupe, Canteen, Bevi, Five Star, Avanti, Aramark, CPI, Vistar). Hallazgo central:
 
-Y **la cotización responde mientras eliges**: 200 personas + café ≈ 420 tazas al día, con el
-supuesto impreso al lado. 🔴 Se estima CONSUMO, jamás precio — el precio es de ellos y no lo
-sabemos; publicar uno inventado sería la peor forma de perder una cuenta.
+> **En todo ese mercado no existe una página donde un jefe de operaciones ponga sus datos y vea
+> un número.** Y no hay un solo premio de awwwards en la categoría: la vara está baja.
+
+Lo que se tomó, con fuente:
+
+| Movimiento | De |
+|---|---|
+| 2 campos → 3 números, sin muro, correo DESPUÉS | [365 Retail Markets](https://365retailmarkets.com/roi-calculator-upgrading-vending) — única calculadora real del rubro |
+| Publicar la fórmula por persona/día | [Crafty](https://www.craftydelivers.com/insights/cost-per-employee-office-pantry-tiers) |
+| Nombrar al enemigo en una tabla | [Bevi](https://bevi.co) — acá: la cafetera del piso |
+| Hero corto sobre el LUGAR DE TRABAJO, no el café | [Canteen](https://www.canteen.com): «Create a better workplace.» |
+| Retención como número estrella | Canteen (98%) — en servicio recurrente pesa más que el tamaño |
+| Grilla de servicios con foto | [Five Star](https://www.fivestarbreaktime.com) |
+| Grading unificado de fotografía | Five Star — lo más barato para que un sitio se vea caro |
+
+Trampas evitadas, todas observadas en esos sitios: formulario que pide y no devuelve nada
+(Canteen), catálogo tras login (Aramark), página de categoría sin un dato (365), hero que
+describe a la empresa (Vistar), video como CTA principal (CPI).
+
+🔴 **La calculadora estima consumo y costo con el tramo que elige el visitante, nunca una tarifa
+de Coffee & Vending** — nadie nos dio una. El supuesto va impreso al lado del número.
 
 ## Cómo está hecho
 
-HTML, CSS y 5 KB de JavaScript a mano. Sin dependencias, sin build. **210 KB en total**, una sola tipografía
-(Archivo Variable, con eje de ancho: comprimida hace de display y en ancho normal hace de cuerpo).
+HTML, CSS y 9 KB de JavaScript a mano. Sin dependencias, sin build.
 
 ```
-index.html            14 KB
-assets/estilo.css     18 KB
-assets/archivo.woff2  87 KB
-assets/*.webp         81 KB   ← las mismas 3 fotos que su sitio sirve en 419 KB
-assets/pagina.js       5 KB
+index.html             20 KB
+assets/estilo.css      24 KB
+assets/archivo.woff2   87 KB
+assets/*.webp         290 KB   ← 8 fotos suyas, graduadas igual (pesaban 1 095 KB)
+assets/*.js             9 KB
 ```
 
 ## Publicar cambios

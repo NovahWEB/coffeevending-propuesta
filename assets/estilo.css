@@ -260,7 +260,9 @@ section[id] { scroll-margin-top: 4.5rem; }
  * final. Con flex-wrap no hay celdas que sobren: los de la última fila se reparten el ancho.
  */
 .servicios { display: flex; flex-wrap: wrap; gap: 1px; background: var(--linea); border: 1px solid var(--linea); margin-top: 2.2rem; }
-.servicio { flex: 1 1 15.5rem; background: var(--papel); padding: 1.6rem 1.5rem; display: flex; flex-direction: column; gap: .5rem; text-decoration: none; }
+/* 18rem da 3 por fila y deja las 2 últimas repartiéndose la segunda: un 3+2 que se lee
+   deliberado. Con 15.5rem entraban 4 y la quinta quedaba sola, estirada a todo el ancho. */
+.servicio { flex: 1 1 18rem; background: var(--papel); padding: 1.6rem 1.5rem; display: flex; flex-direction: column; gap: .5rem; text-decoration: none; }
 .servicio:hover { background: var(--papel-2); }
 .servicio__n { font-family: var(--display); font-variation-settings: 'wdth' 100; font-weight: 600; font-size: .78rem; letter-spacing: .1em; color: var(--canela); }
 .servicio h3 { margin: 0; }
@@ -482,3 +484,111 @@ h2.display { font-size: clamp(2.1rem, 1.3rem + 3.2vw, 3.8rem); }
   .momento-b { flex: 1 1 45%; }
   .curva svg { height: 190px; }
 }
+
+/* ══ LA CALCULADORA ══════════════════════════════════════════════════════════
+   Es el momento memorable de la página. La investigación fue clara: en todo el mercado
+   líder de EE.UU. no existe una página donde un jefe de operaciones ponga sus datos y vea
+   un número. Por eso esta sección se lleva el peso visual de la página. */
+.calc { background: var(--tinta); color: var(--sobre-tinta); padding-block: clamp(3.5rem, 8vw, 6rem); }
+.calc .rotulo { color: var(--sobre-tinta-2); }
+.calc .rotulo::before { background: var(--canela-viva); }
+.calc__lead { color: var(--sobre-tinta-2); margin-bottom: 2.2rem; }
+
+.calc__caja { border: 1px solid var(--linea-tinta); border-radius: 3px; overflow: hidden; }
+.calc__campos {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1px; background: var(--linea-tinta);
+}
+.campo--grande { background: color-mix(in srgb, var(--canela-viva) 7%, var(--tinta)); padding: 1.3rem 1.4rem; gap: .55rem; }
+.campo--grande label { color: var(--sobre-tinta-2); }
+.campo--grande input[type=number], .campo--grande select {
+  background: transparent; border: 0; border-bottom: 2px solid var(--linea-tinta);
+  color: var(--sobre-tinta); padding: .2rem 0; border-radius: 0;
+  font-family: var(--display); font-variation-settings: 'wdth' 84; font-weight: 800;
+  font-size: 2rem; line-height: 1.1;
+}
+.campo--grande select { font-size: 1.05rem; font-variation-settings: 'wdth' 100; font-weight: 600; }
+.campo--grande input[type=number]:focus, .campo--grande select:focus { outline: 0; border-bottom-color: var(--canela-viva); }
+.campo--grande option { background: var(--tinta); color: var(--sobre-tinta); }
+
+/* `.campo input` (0,2,0) le gana a `.deslizador` (0,1,0) y le devolvía el fondo claro y los
+   44px de alto: la barra salía como una caja crema. Se sube la especificidad, no se usa !important. */
+.campo--grande .deslizador { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--linea-tinta); border: 0; padding: 0; min-height: 0; margin-top: .5rem; }
+.campo--grande .deslizador::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: var(--canela-viva); cursor: pointer; border: 0; }
+.campo--grande .deslizador::-moz-range-thumb { width: 22px; height: 22px; border-radius: 50%; background: var(--canela-viva); cursor: pointer; border: 0; }
+
+/* Tres salidas a la vez. La del medio es la que vende; las otras dos le dan credibilidad. */
+.calc__salidas { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 1px; background: var(--linea-tinta); }
+.salida { background: var(--tinta); padding: 1.5rem 1.4rem; display: flex; flex-direction: column; gap: .25rem; }
+.salida--fuerte { background: color-mix(in srgb, var(--canela-viva) 13%, var(--tinta)); }
+.salida__n {
+  font-family: var(--display); font-variation-settings: 'wdth' 78; font-weight: 800;
+  font-size: clamp(2.1rem, 1.4rem + 2.4vw, 3.1rem); line-height: 1;
+  font-variant-numeric: tabular-nums; color: var(--sobre-tinta);
+}
+.salida--fuerte .salida__n { color: var(--canela-viva); }
+.salida__q { font-size: .96rem; font-weight: 600; }
+.salida__d { font-size: .82rem; color: var(--sobre-tinta-2); line-height: 1.4; }
+
+.calc__sup { font-size: .82rem; line-height: 1.55; color: var(--sobre-tinta-2); margin: 1.1rem 0 0; max-width: 62rem; }
+.calc__pie { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 1.6rem; }
+.calc__rama { margin-top: 1.6rem; font-size: 1.05rem; color: var(--sobre-tinta-2); }
+.calc__rama strong { color: var(--sobre-tinta); }
+.calc__rama a { color: var(--canela-viva); text-decoration-color: color-mix(in srgb, var(--canela-viva) 45%, transparent); }
+
+/* ══ LA COMPARACIÓN ══════════════════════════════════════════════════════════ */
+.enemigo { background: var(--papel-2); }
+.comparar th[scope="row"] { font-weight: 600; width: 22%; }
+.comparar td, .comparar th { vertical-align: top; font-size: .93rem; }
+.comparar thead th { font-size: .74rem; }
+.comparar .es-nuestro { background: color-mix(in srgb, var(--canela) 9%, transparent); }
+.comparar thead .es-nuestro { color: var(--canela); font-weight: 700; }
+.comparar tbody .es-nuestro { font-weight: 600; }
+.oculto { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* ══ LOS NÚMEROS DE OPERACIÓN ════════════════════════════════════════════════
+   Canteen usa cifras por LÍNEA de negocio y corona con la retención (98%), que en un
+   servicio recurrente pesa más que el tamaño. Acá las casillas están y esperan los
+   números reales: inventarlos sería lo único que puede costar la cuenta. */
+.cifras { display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); gap: 1px; background: var(--linea); border: 1px solid var(--linea); margin-top: 2rem; }
+.cifra { background: var(--papel); padding: 1.4rem 1.3rem; }
+.cifra__n {
+  font-family: var(--display); font-variation-settings: 'wdth' 78; font-weight: 800;
+  font-size: clamp(1.9rem, 1.4rem + 1.8vw, 2.6rem); line-height: 1; color: var(--canela);
+  font-variant-numeric: tabular-nums; display: block;
+}
+.cifra__q { font-size: .88rem; color: var(--texto-2); margin-top: .4rem; display: block; }
+.cifra--pide .cifra__n { color: var(--texto-2); opacity: .45; }
+.cifra--pide { background: repeating-linear-gradient(135deg, transparent 0 11px, color-mix(in srgb, var(--texto) 4%, transparent) 11px 12px), var(--papel); }
+
+@media (max-width: 40rem) {
+  .campo--grande input[type=number] { font-size: 1.7rem; }
+  .comparar th[scope="row"] { width: auto; }
+}
+
+/* ══ SERVICIOS CON FOTOGRAFÍA ════════════════════════════════════════════════
+   La grilla de tarjetas con foto es el patrón unánime del rubro (Five Star con ocho,
+   Cantaloupe con siete, Aramark con tres). Antes eran tarjetas de puro texto: correctas
+   y mudas. Con la foto arriba, la página se ve de una empresa que TIENE el equipo. */
+.servicio { padding: 0 0 1.5rem; overflow: hidden; }
+.servicio__f {
+  /* `height: auto` no es opcional: el atributo height del HTML fija la altura usada y entonces
+     `aspect-ratio` se ignora EN SILENCIO — la tarjeta del MicroMarket salía 93 px más alta que
+     sus vecinas. Los atributos width/height del HTML se quedan para que el navegador reserve el
+     espacio antes de que baje la foto. */
+  width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; display: block;
+  margin-bottom: 1.2rem; transition: transform .5s cubic-bezier(.4,0,.2,1);
+}
+.servicio:hover .servicio__f { transform: scale(1.04); }
+.servicio > :not(.servicio__f) { padding-inline: 1.5rem; }
+@media (prefers-reduced-motion: reduce) { .servicio:hover .servicio__f { transform: none; } }
+
+/* ══ EL HERO, MÁS GRANDE ═════════════════════════════════════════════════════
+   Le entra por los ojos primero: el titular ocupa la pantalla y la foto respira más.
+   El velo baja porque las fotos ya vienen graduadas y no necesitan tanto apagado. */
+.portada__in { padding-block: clamp(4.5rem, 12vw, 9rem); }
+.portada__foto { opacity: .78; }
+.portada__velo {
+  background: linear-gradient(103deg, var(--tinta) 4%, rgba(23,16,11,.80) 34%, rgba(23,16,11,.22) 76%, transparent 100%);
+}
+.portada h1 { max-width: 13ch; }
