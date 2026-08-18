@@ -1,0 +1,375 @@
+ /*
+ * Una sola familia, dos trabajos.
+ *
+ * Archivo Variable trae eje de ANCHO: comprimida y pesada hace de display (el aire de la
+ * Veloxity que ya usan), y en ancho normal hace de cuerpo. Una familia en vez de tres es
+ * menos peso, menos parpadeo al cargar y una voz más consistente — y es coherente con lo que
+ * este rediseño defiende: el presupuesto de rendimiento se decide en el primer trazo, no al
+ * final.
+ */
+@font-face {
+  font-family: 'Archivo Var';
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  font-style: normal;
+  font-display: swap;
+  /* La ruta es relativa a ESTE archivo, no al HTML: con 'assets/archivo.woff2' el navegador
+     pedía assets/assets/… y daba 404 SIN error visible — el titular caía a la del sistema. */
+  src: url('archivo.woff2') format('woff2-variations');
+}
+ :root {
+  /* La paleta es la de ellos, apretada. Lo que se fue: cinco acentos de servicio que peleaban
+     entre sí y contra el café. Queda UNO. */
+  --tinta:      #17100B;
+  --espresso:   #2A1810;
+  --papel:      #F6EFE4;
+  --papel-2:    #EBE0CD;
+  --canela:     #A8481A;
+  --canela-viva:#D9762F;
+  --texto:      #2A1810;
+  --texto-2:    #5D4A3C;
+  --sobre-tinta:  #F4EBDD;
+  --sobre-tinta-2: rgba(244,235,221,.72);
+  --linea:      rgba(42,24,16,.16);
+  --linea-tinta: rgba(244,235,221,.18);
+   --display: 'Archivo Var', 'Arial Narrow', system-ui, sans-serif;
+  --cuerpo:  'Archivo Var', system-ui, -apple-system, 'Segoe UI', sans-serif;
+   --ancho: 76rem;
+}
+ @media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --papel:   #17100B;
+    --papel-2: #221812;
+    --texto:   #F4EBDD;
+    --texto-2: rgba(244,235,221,.70);
+    --canela:  #E08A45;
+    --linea:   rgba(244,235,221,.16);
+  }
+}
+:root[data-theme="dark"] {
+  --papel:   #17100B;
+  --papel-2: #221812;
+  --texto:   #F4EBDD;
+  --texto-2: rgba(244,235,221,.70);
+  --canela:  #E08A45;
+  --linea:   rgba(244,235,221,.16);
+}
+ * { box-sizing: border-box; }
+ body {
+  margin: 0;
+  background: var(--papel);
+  color: var(--texto);
+  font-family: var(--cuerpo);
+  font-variation-settings: 'wdth' 100;
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+ .wrap { max-width: var(--ancho); margin: 0 auto; padding-inline: clamp(1.1rem, 4vw, 2.5rem); }
+ /* ── Tipografía ──────────────────────────────────────────────────── */
+.display {
+  font-family: var(--display);
+  font-variation-settings: 'wdth' 76;
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+  margin: 0;
+}
+h1.display { font-size: clamp(2.9rem, 1.6rem + 5.6vw, 5.6rem); }
+h2.display { font-size: clamp(2rem, 1.3rem + 2.8vw, 3.3rem); }
+h3.display { font-size: clamp(1.25rem, 1rem + 0.9vw, 1.6rem); }
+ .rotulo {
+  font-size: .74rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--texto-2);
+  margin: 0 0 .9rem;
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+}
+.rotulo::before {
+  content: '';
+  width: 1.6rem;
+  height: 1px;
+  background: var(--canela);
+  flex: none;
+}
+.on-tinta .rotulo { color: var(--sobre-tinta-2); }
+.on-tinta .rotulo::before { background: var(--canela-viva); }
+ p { margin: 0 0 1rem; max-width: 40rem; }
+.lead { font-size: 1.14rem; line-height: 1.55; color: var(--texto-2); }
+.on-tinta { background: var(--tinta); color: var(--sobre-tinta); }
+.on-tinta .lead { color: var(--sobre-tinta-2); }
+ a { color: inherit; }
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--canela-viva);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+ /* ── Botones ─────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  padding: .85rem 1.5rem;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  font: inherit;
+  font-weight: 600;
+  font-size: .96rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background .18s ease, color .18s ease, transform .18s ease;
+}
+.btn--fuerte { background: var(--canela); color: #FFF6EC; }
+.btn--fuerte:hover { background: var(--canela-viva); color: var(--tinta); }
+.btn--linea { border-color: var(--linea); color: inherit; }
+.btn--linea:hover { border-color: var(--canela); color: var(--canela); }
+.on-tinta .btn--linea { border-color: var(--linea-tinta); }
+.on-tinta .btn--linea:hover { border-color: var(--canela-viva); color: var(--canela-viva); }
+.btn .flecha { transition: transform .18s ease; }
+.btn:hover .flecha { transform: translateX(3px); }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+ /* ── Barra ───────────────────────────────────────────────────────── */
+.barra {
+  position: sticky; top: 0; z-index: 40;
+  background: color-mix(in srgb, var(--tinta) 92%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--linea-tinta);
+  color: var(--sobre-tinta);
+}
+.barra__in {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; padding-block: .85rem;
+}
+/*
+ * La marca es TIPOGRÁFICA a propósito. El logo actual es un PNG de 1921×1080 (82 KB) que se
+ * pinta a ~60 px: por eso se ve lavado en el teléfono, y sus tres colores —verde, azul,
+ * amarillo— no aparecen en ninguna otra parte del sitio. Un logotipo así se rehace en vector;
+ * mientras tanto, el nombre bien compuesto se lee mejor que el archivo.
+ */
+.marca {
+  font-family: var(--display);
+  font-variation-settings: 'wdth' 74;
+  font-weight: 800;
+  font-size: 1.32rem;
+  line-height: 1;
+  letter-spacing: -.01em;
+  text-decoration: none;
+  display: flex; align-items: baseline; gap: .38rem;
+}
+.marca em { font-style: normal; color: var(--canela-viva); }
+.barra nav { display: flex; gap: 1.4rem; font-size: .92rem; }
+.barra nav a { text-decoration: none; color: var(--sobre-tinta-2); }
+.barra nav a:hover { color: var(--sobre-tinta); }
+.barra__tel {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+@media (max-width: 60rem) {
+  .barra__in { flex-wrap: wrap; row-gap: .6rem; }
+  .barra nav {
+    order: 3; width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: .2rem;
+  }
+  .barra nav::-webkit-scrollbar { display: none; }
+  .barra nav a { white-space: nowrap; }
+}
+ /* ── Portada ─────────────────────────────────────────────────────── */
+.portada { position: relative; background: var(--tinta); color: var(--sobre-tinta); overflow: hidden; }
+.portada__foto {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  opacity: .68;
+}
+/* El degradado no es decoración: es lo que sostiene el contraste del texto sobre una foto
+   que cambia de luz de un lado a otro. Sin él, la bajada queda ilegible sobre la ventana. */
+.portada__velo {
+  position: absolute; inset: 0;
+  background: linear-gradient(100deg, var(--tinta) 8%, rgba(23,16,11,.86) 38%, rgba(23,16,11,.30) 78%, rgba(23,16,11,.05) 100%);
+}
+.portada__in { position: relative; padding-block: clamp(3.5rem, 9vw, 7rem); }
+.portada h1 { max-width: 15ch; }
+.portada .lead { margin-top: 1.4rem; max-width: 34rem; font-size: 1.2rem; }
+.portada__acciones { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 2rem; }
+ /* La fila de datos que reemplaza tres pantallas de scroll. */
+.datos-portada {
+  display: flex; flex-wrap: wrap; gap: 0 2.6rem;
+  margin-top: 3rem; padding-top: 1.5rem;
+  border-top: 1px solid var(--linea-tinta);
+}
+.dato__n {
+  font-family: var(--display);
+  font-variation-settings: 'wdth' 78;
+  font-weight: 800;
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--canela-viva);
+  font-variant-numeric: tabular-nums;
+  display: block;
+}
+.dato__q { font-size: .85rem; color: var(--sobre-tinta-2); margin-top: .3rem; display: block; max-width: 16ch; }
+ /* ── Secciones ───────────────────────────────────────────────────── */
+/* La barra mide ~3.5rem: sin esto, saltar a un ancla deja el título debajo de ella. */
+section[id] { scroll-margin-top: 4.5rem; }
+.seccion { padding-block: clamp(3.2rem, 7vw, 5.5rem); }
+.seccion--apretada { padding-block: clamp(2.4rem, 5vw, 3.6rem); }
+ .dos {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: clamp(1.6rem, 4vw, 3.5rem);
+  /* `start`, no `center`: centrado, la columna corta flota en medio de un hueco alto y la
+     sección parece rota. Alineados arriba, el aire queda abajo, que es donde no molesta. */
+  align-items: start;
+}
+@media (max-width: 56rem) { .dos { grid-template-columns: 1fr; } }
+ /* ── La franja que falta: cotizar ────────────────────────────────── */
+.cotiza { background: var(--papel-2); border-block: 1px solid var(--linea); }
+.cotiza__in { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(1.4rem, 4vw, 3rem); align-items: center; }
+@media (max-width: 60rem) { .cotiza__in { grid-template-columns: 1fr; } }
+.campos { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: .7rem; }
+.campo { display: flex; flex-direction: column; gap: .35rem; }
+.campo label { font-size: .76rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--texto-2); }
+.campo select, .campo input {
+  font: inherit;
+  /* 16px o el iPhone hace zoom solo al enfocar. */
+  font-size: 16px;
+  padding: .7rem .8rem;
+  border: 1px solid var(--linea);
+  border-radius: 2px;
+  background: var(--papel);
+  color: var(--texto);
+  min-height: 44px;
+}
+.cotiza .btn { margin-top: .9rem; }
+.cotiza__nota { font-size: .84rem; color: var(--texto-2); margin: .8rem 0 0; }
+ /* ── Servicios ───────────────────────────────────────────────────── */
+/*
+ * Cajas que crecen, NO rejilla.
+ *
+ * Con `grid` y cinco servicios en cuatro columnas, la última fila dejaba tres celdas vacías —y
+ * como el fondo del contenedor hacía de línea, ese vacío se veía como un bloque gris pegado al
+ * final. Con flex-wrap no hay celdas que sobren: los de la última fila se reparten el ancho.
+ */
+.servicios { display: flex; flex-wrap: wrap; gap: 1px; background: var(--linea); border: 1px solid var(--linea); margin-top: 2.2rem; }
+.servicio { flex: 1 1 15.5rem; background: var(--papel); padding: 1.6rem 1.5rem; display: flex; flex-direction: column; gap: .5rem; text-decoration: none; }
+.servicio:hover { background: var(--papel-2); }
+.servicio__n { font-family: var(--display); font-variation-settings: 'wdth' 100; font-weight: 600; font-size: .78rem; letter-spacing: .1em; color: var(--canela); }
+.servicio h3 { margin: 0; }
+.servicio p { font-size: .95rem; color: var(--texto-2); margin: 0; }
+.servicio__mas { margin-top: auto; padding-top: .9rem; font-size: .88rem; font-weight: 600; color: var(--canela); display: flex; align-items: center; gap: .4rem; }
+ /* ── Proceso ─────────────────────────────────────────────────────── */
+.pasos { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: clamp(1.2rem, 3vw, 2rem); margin-top: 2rem; counter-reset: paso; }
+.paso { border-top: 2px solid var(--canela-viva); padding-top: .9rem; }
+.paso__n { font-family: var(--display); font-variation-settings: 'wdth' 100; font-weight: 700; font-size: .78rem; letter-spacing: .1em; color: var(--canela-viva); display: block; margin-bottom: .3rem; }
+.paso h3 { font-size: 1.1rem; margin: 0 0 .35rem; }
+.paso p { font-size: .93rem; margin: 0; }
+ /* ── El hueco honesto ────────────────────────────────────────────── */
+/* Lo que el sitio necesita y NADIE nos dio todavía. Se pide con un recuadro; inventar
+   clientes o testimonios sería exactamente lo que hace que un sitio deje de ser creíble. */
+.falta {
+  border: 1px dashed var(--linea);
+  background: repeating-linear-gradient(135deg, transparent 0 11px, color-mix(in srgb, var(--texto) 4%, transparent) 11px 12px);
+  border-radius: 2px;
+  padding: 1.6rem;
+  text-align: center;
+}
+.falta__t { font-size: .76rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--canela); margin: 0 0 .5rem; }
+.falta p { font-size: .94rem; color: var(--texto-2); margin: 0 auto; max-width: 46ch; }
+ /* ── Momento ─────────────────────────────────────────────────────── */
+.momento { position: relative; min-height: 26rem; display: grid; align-items: center; overflow: hidden; }
+.momento__foto { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: .55; }
+.momento__velo { position: absolute; inset: 0; background: linear-gradient(90deg, var(--tinta) 8%, rgba(23,16,11,.55) 60%, rgba(23,16,11,.2) 100%); }
+/* `width:100%` no es de adorno: en un contenedor grid, el .wrap se encoge a su contenido y
+   el `margin:0 auto` lo centra sobre ESE ancho — el bloque quedaba a 353px cuando el resto
+   de la página empieza a 105px. Medido, no supuesto. */
+.momento__in { position: relative; width: 100%; padding-block: 3.5rem; }
+.momento h2 { max-width: 18ch; }
+ .figura { margin: 0; }
+.figura img { width: 100%; height: auto; display: block; border-radius: 2px; }
+.figura figcaption { font-size: .82rem; color: var(--texto-2); margin-top: .6rem; }
+ /* ── Cierre ──────────────────────────────────────────────────────── */
+.cierre { background: var(--tinta); color: var(--sobre-tinta); }
+.cierre__in { padding-block: clamp(3rem, 7vw, 5rem); display: grid; grid-template-columns: minmax(0,1.1fr) minmax(0,.9fr); gap: clamp(1.6rem,4vw,3rem); align-items: end; }
+@media (max-width: 56rem) { .cierre__in { grid-template-columns: 1fr; } }
+.contactos { display: grid; gap: .9rem; }
+.contacto__k { font-size: .74rem; letter-spacing: .12em; text-transform: uppercase; color: var(--sobre-tinta-2); display: block; }
+.contacto__v { font-size: 1.05rem; font-weight: 600; text-decoration: none; }
+.contacto__v:hover { color: var(--canela-viva); }
+ /* ── El porqué ───────────────────────────────────────────────────── */
+.porque { background: var(--papel-2); border-top: 3px solid var(--canela); }
+.cambios { display: grid; gap: 0; margin-top: 1.8rem; }
+.cambio { border-top: 1px solid var(--linea); padding: 1.15rem 0; display: grid; grid-template-columns: 2.2rem 1fr; gap: .2rem 1rem; }
+.cambio:last-child { border-bottom: 1px solid var(--linea); }
+.cambio__n { font-family: var(--display); font-variation-settings: 'wdth' 100; font-weight: 700; color: var(--canela); font-size: .85rem; padding-top: .18rem; }
+.cambio h3 { font-size: 1.04rem; margin: 0 0 .3rem; font-family: var(--cuerpo); font-weight: 700; }
+.cambio p { font-size: .95rem; color: var(--texto-2); margin: 0; max-width: 52rem; }
+.cambio p + p { margin-top: .5rem; }
+.medida { font-variant-numeric: tabular-nums; font-weight: 700; color: var(--texto); }
+ .tabla-caja { overflow-x: auto; margin-top: 1.4rem; border: 1px solid var(--linea); border-radius: 2px; }
+table { border-collapse: collapse; width: 100%; min-width: 30rem; font-size: .92rem; background: var(--papel); }
+th, td { text-align: left; padding: .6rem .85rem; border-bottom: 1px solid var(--linea); }
+thead th { background: var(--papel-2); font-size: .76rem; letter-spacing: .06em; text-transform: uppercase; color: var(--texto-2); white-space: nowrap; }
+tbody tr:last-child td { border-bottom: 0; }
+td.n { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.peor { color: var(--canela); font-weight: 600; }
+ /* ── Aviso de propuesta ──────────────────────────────────────────
+   Va arriba de todo y no se esconde: la página lleva el nombre, el teléfono y las fotos de
+   una empresa real. Que se entienda de una que es una propuesta —y de quién— evita que
+   alguien la confunda con su sitio, y de paso es la firma. */
+.aviso {
+  background: var(--canela);
+  color: #FFF6EC;
+  font-size: .82rem;
+}
+.aviso__in {
+  display: flex; flex-wrap: wrap; gap: .4rem 1.2rem;
+  justify-content: space-between; align-items: center;
+  padding-block: .5rem;
+}
+.aviso__firma { opacity: .9; }
+.aviso a { color: inherit; }
+ /* ── Recursos ────────────────────────────────────────────────────── */
+.recursos { background: var(--papel-2); }
+.notas { list-style: none; padding: 0; margin: 2rem 0 0; max-width: none; }
+.notas li { border-top: 1px solid var(--linea); }
+.notas li:last-child { border-bottom: 1px solid var(--linea); }
+.notas a {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 1rem 2rem; padding: 1.05rem 0; text-decoration: none;
+}
+.notas a:hover .nota__t { color: var(--canela); }
+.nota__t { font-size: 1.05rem; font-weight: 600; max-width: 46rem; }
+.nota__q {
+  font-size: .74rem; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--texto-2); flex: none;
+}
+ /* La fuente de las cifras prestadas. Va chica pero va: el sitio original lo aclara y esa
+   honestidad es de lo mejor que tiene — quitarla al rediseñar sería un retroceso. */
+.fuente { font-size: .8rem; line-height: 1.5; color: var(--sobre-tinta-2); margin-top: 1.4rem; max-width: 52rem; }
+ /* ── Pie ─────────────────────────────────────────────────────────── */
+.pie { background: var(--tinta); color: var(--sobre-tinta); border-top: 1px solid var(--linea-tinta); }
+.pie__in {
+  display: flex; flex-wrap: wrap; gap: 1.6rem 3rem;
+  justify-content: space-between; align-items: start;
+  padding-block: 2.4rem 1.6rem;
+}
+.marca--pie { color: var(--sobre-tinta); }
+.pie__linea { font-size: .9rem; color: var(--sobre-tinta-2); margin: .6rem 0 0; max-width: 34ch; }
+.pie__nav { display: flex; flex-wrap: wrap; gap: .6rem 1.4rem; font-size: .92rem; }
+.pie__nav a { color: var(--sobre-tinta-2); text-decoration: none; }
+.pie__nav a:hover { color: var(--sobre-tinta); }
+.pie__legal { border-top: 1px solid var(--linea-tinta); padding-block: 1.2rem 2.2rem; }
+.pie__legal p { font-size: .8rem; line-height: 1.55; color: var(--sobre-tinta-2); max-width: 62rem; margin: 0; }
+.pie__legal a { color: var(--canela-viva); }
+ .acciones { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 2rem; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }

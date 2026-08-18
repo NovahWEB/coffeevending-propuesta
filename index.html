@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!--
+  🔴 noindex a propósito.
+
+  Esta página lleva el nombre, el teléfono y las fotos de una empresa real que NO es nuestra
+  cliente todavía: es una propuesta. Si la indexaran, competiría en búsquedas con su sitio
+  verdadero y alguien podría llamarlos creyendo que es el oficial. Se comparte por enlace, no
+  por buscador.
+-->
+<meta name="robots" content="noindex, nofollow">
+
+<title>Coffee &amp; Vending Panamá — propuesta de rediseño por NovahWeb</title>
+<meta name="description" content="Propuesta de rediseño del sitio de Coffee &amp; Vending Panamá, preparada por NovahWeb. No es el sitio oficial de la empresa.">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Coffee &amp; Vending — propuesta de rediseño">
+<meta property="og:description" content="Una versión del sitio pensada para que un jefe de operaciones pueda cotizar sin escribir un correo. Propuesta de NovahWeb.">
+<meta property="og:image" content="assets/hero.webp">
+<meta property="og:locale" content="es_PA">
+
+<!-- La fuente se precarga: es la que dibuja los titulares, y sin esto el primer pintado sale
+     con la del sistema y salta cuando llega. -->
+<link rel="preload" href="assets/archivo.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/estilo.css">
+</head>
+<body>
+<header class="aviso">
+  <div class="wrap aviso__in">
+    <span>Propuesta de rediseño — no es el sitio oficial de Coffee &amp; Vending.</span>
+    <span class="aviso__firma">Hecho por <strong>NovahWeb</strong></span>
+  </div>
+</header>
+
+<header class="barra">
+  <div class="wrap barra__in">
+    <a class="marca" href="#inicio">Coffee<em>&amp;</em>Vending</a>
+    <nav aria-label="Navegación principal">
+      <a href="#servicios">Servicios</a>
+      <a href="#proceso">Cómo trabajamos</a>
+      <a href="#cobertura">Cobertura</a>
+      <a href="#recursos">Recursos</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <a class="barra__tel" href="tel:+5073936333">+507 393-6333</a>
+  </div>
+</header>
+
+<main id="inicio">
+
+  <!-- ═══ PORTADA ════════════════════════════════════════════════ -->
+  <section class="portada on-tinta">
+    <div class="portada__foto" style="background-image:url('assets/hero.webp')"></div>
+    <div class="portada__velo"></div>
+    <div class="wrap portada__in">
+      <p class="rotulo">Café, snacks y agua para oficinas en Panamá</p>
+      <h1 class="display">Que nadie en tu oficina tenga que salir por un café.</h1>
+      <p class="lead">
+        Instalamos las máquinas, las abastecemos y las mantenemos. Tu equipo solo las usa —
+        en la ciudad y en el interior del país.
+      </p>
+      <div class="acciones">
+        <a class="btn btn--fuerte" href="#cotizar">Cotizar para mi oficina <span class="flecha" aria-hidden="true">→</span></a>
+        <a class="btn btn--linea" href="#servicios">Ver los cinco servicios</a>
+      </div>
+
+      <div class="datos-portada">
+        <div><span class="dato__n">2002</span><span class="dato__q">operando en Panamá desde</span></div>
+        <div><span class="dato__n">5</span><span class="dato__q">servicios con un solo proveedor</span></div>
+        <div><span class="dato__n">País</span><span class="dato__q">cobertura completa, no solo la capital</span></div>
+        <div><span class="dato__n">3 en 1</span><span class="dato__q">instalamos, abastecemos y mantenemos</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ COTIZAR ════════════════════════════════════════════════ -->
+  <section class="cotiza seccion--apretada" id="cotizar">
+    <div class="wrap cotiza__in">
+      <div>
+        <p class="rotulo">Empezar</p>
+        <h2 class="display">Cotiza en tres datos.</h2>
+        <p class="cotiza__nota">
+          Con cuántos son, qué necesitan y dónde están alcanza para armarte una propuesta.
+          Sin reuniones para llegar a eso.
+        </p>
+      </div>
+      <form onsubmit="event.preventDefault(); this.querySelector('.respuesta').hidden = false;">
+        <div class="campos">
+          <div class="campo">
+            <label for="gente">Cuántas personas</label>
+            <select id="gente" name="gente">
+              <option>Menos de 25</option><option>25 a 75</option>
+              <option>75 a 200</option><option>Más de 200</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label for="que">Qué necesitas</label>
+            <select id="que" name="que">
+              <option>Café</option><option>Snacks y bebidas</option><option>Soda</option>
+              <option>Agua purificada</option><option>MicroMarket</option><option>Todo</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label for="donde">Dónde están</label>
+            <input id="donde" name="donde" type="text" placeholder="Ciudad o provincia" autocomplete="address-level2">
+          </div>
+        </div>
+        <button class="btn btn--fuerte" type="submit">Ver mi propuesta <span class="flecha" aria-hidden="true">→</span></button>
+        <p class="cotiza__nota respuesta" hidden>
+          En el sitio real, esto le llega al equipo comercial con los tres datos ya puestos.
+          Mientras tanto: <a href="tel:+5073936333">+507 393-6333</a>.
+        </p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ═══ SERVICIOS ══════════════════════════════════════════════ -->
+  <section class="seccion" id="servicios">
+    <div class="wrap">
+      <p class="rotulo">Servicios</p>
+      <h2 class="display">Cinco cosas, un solo proveedor.</h2>
+      <p class="lead">Cada una se instala, se abastece y se mantiene por nuestra cuenta. Nadie de tu equipo compra insumos ni llama al técnico.</p>
+
+      <div class="servicios">
+        <a class="servicio" href="#cotizar">
+          <span class="servicio__n">01</span>
+          <h3 class="display">Café</h3>
+          <p>Máquinas de grano a taza con café recién preparado durante toda la jornada.</p>
+          <span class="servicio__mas">Cotizar <span aria-hidden="true">→</span></span>
+        </a>
+        <a class="servicio" href="#cotizar">
+          <span class="servicio__n">02</span>
+          <h3 class="display">Snacks</h3>
+          <p>Vending surtido según el tamaño del equipo y lo que de verdad consume.</p>
+          <span class="servicio__mas">Cotizar <span aria-hidden="true">→</span></span>
+        </a>
+        <a class="servicio" href="#cotizar">
+          <span class="servicio__n">03</span>
+          <h3 class="display">Soda</h3>
+          <p>Bebidas frías con reposición programada. Cobro en efectivo, tarjeta o Yappy.</p>
+          <span class="servicio__mas">Cotizar <span aria-hidden="true">→</span></span>
+        </a>
+        <a class="servicio" href="#cotizar">
+          <span class="servicio__n">04</span>
+          <h3 class="display">MicroMarket</h3>
+          <p>Una tienda abierta dentro de la oficina, con autopago y más variedad que una máquina.</p>
+          <span class="servicio__mas">Cotizar <span aria-hidden="true">→</span></span>
+        </a>
+        <a class="servicio" href="#cotizar">
+          <span class="servicio__n">05</span>
+          <h3 class="display">Agua purificada</h3>
+          <p>Dispensadores sin garrafón, con filtros y mantenimiento incluidos.</p>
+          <span class="servicio__mas">Cotizar <span aria-hidden="true">→</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ POR QUÉ IMPORTA ════════════════════════════════════════ -->
+  <section class="momento on-tinta">
+    <div class="momento__foto" style="background-image:url('assets/taza.webp')"></div>
+    <div class="momento__velo"></div>
+    <div class="wrap momento__in">
+      <p class="rotulo">Por qué importa</p>
+      <h2 class="display">Una pausa mejor es de las formas más baratas de cuidar a un equipo.</h2>
+      <p class="lead">
+        No reemplaza un aumento ni un buen jefe. Pero se resuelve en una semana y no depende
+        de que cambie nada más en la empresa.
+      </p>
+      <p class="fuente">
+        Estudios con empleados en Estados Unidos asocian una mejor experiencia laboral con
+        más permanencia y bienestar. Son asociaciones, no resultados atribuibles a una amenidad
+        en particular. Fuentes: Gallup y Great Place to Work.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══ PROCESO ════════════════════════════════════════════════ -->
+  <section class="seccion" id="proceso">
+    <div class="wrap">
+      <p class="rotulo">Cómo trabajamos</p>
+      <h2 class="display">Cuatro pasos, y solo uno te toca a ti.</h2>
+      <div class="pasos">
+        <div class="paso">
+          <span class="paso__n">Paso 1</span>
+          <h3>Evaluamos</h3>
+          <p>Vemos el espacio, cuánta gente hay y qué consumen hoy.</p>
+        </div>
+        <div class="paso">
+          <span class="paso__n">Paso 2</span>
+          <h3>Diseñamos</h3>
+          <p>Proponemos qué equipos van, dónde y con qué surtido.</p>
+        </div>
+        <div class="paso">
+          <span class="paso__n">Paso 3</span>
+          <h3>Apruebas e instalamos</h3>
+          <p>Lo único que necesitamos de tu lado: el visto bueno.</p>
+        </div>
+        <div class="paso">
+          <span class="paso__n">Paso 4</span>
+          <h3>Operamos</h3>
+          <p>Reabastecemos y damos mantenimiento. Si algo falla, lo resolvemos nosotros.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ COBERTURA ══════════════════════════════════════════════ -->
+  <section class="seccion" id="cobertura">
+    <div class="wrap dos">
+      <div>
+        <p class="rotulo">Cobertura</p>
+        <h2 class="display">Si tu operación está fuera de la capital, seguimos siendo tu proveedor.</h2>
+        <p class="lead">
+          La mayoría de los acuerdos de café y snacks se limitan a la ciudad. El nuestro no:
+          misma instalación, mismo reabastecimiento y mismo soporte técnico en todo el país.
+        </p>
+        <a class="btn btn--linea" href="#cotizar">Preguntar por mi provincia</a>
+      </div>
+      <figure class="figura">
+        <img src="assets/micro.webp" alt="MicroMarket instalado en una oficina: estantes con snacks y bebidas junto a una zona de mesas" loading="lazy" decoding="async" width="760" height="507">
+        <figcaption>MicroMarket — la opción con más variedad cuando hay espacio para una tienda abierta.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ═══ RECURSOS ═══════════════════════════════════════════════ -->
+  <section class="seccion recursos" id="recursos">
+    <div class="wrap">
+      <p class="rotulo">Recursos</p>
+      <h2 class="display">Lo que conviene saber antes de decidir.</h2>
+      <p class="lead">Escribimos sobre las preguntas que nos hacen antes de firmar. Sin vender nada.</p>
+
+      <ul class="notas" role="list">
+        <li><a href="#cotizar"><span class="nota__t">Cómo elegir una máquina de snacks según el tamaño de tu equipo</span><span class="nota__q">Snacks</span></a></li>
+        <li><a href="#cotizar"><span class="nota__t">Cómo planificar un MicroMarket para tu oficina</span><span class="nota__q">MicroMarket</span></a></li>
+        <li><a href="#cotizar"><span class="nota__t">Efectivo, tarjeta o Yappy: cómo funciona el pago en una máquina de soda</span><span class="nota__q">Soda</span></a></li>
+        <li><a href="#cotizar"><span class="nota__t">Dispensadores de agua sin garrafón: qué debe evaluar tu empresa</span><span class="nota__q">Agua</span></a></li>
+        <li><a href="#cotizar"><span class="nota__t">Filtros y mantenimiento de un dispensador de agua sin garrafón</span><span class="nota__q">Agua</span></a></li>
+        <li><a href="#cotizar"><span class="nota__t">Agua fría, caliente o al tiempo: qué necesita una oficina</span><span class="nota__q">Agua</span></a></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ═══ CIERRE ═════════════════════════════════════════════════ -->
+  <section class="cierre on-tinta" id="contacto">
+    <div class="wrap cierre__in">
+      <div>
+        <p class="rotulo">Contacto</p>
+        <h2 class="display">Cuéntanos cuántos son y dónde están.</h2>
+        <p class="lead">Con eso alcanza para armarte una propuesta.</p>
+        <div class="acciones">
+          <a class="btn btn--fuerte" href="#cotizar">Cotizar <span class="flecha" aria-hidden="true">→</span></a>
+          <a class="btn btn--linea" href="tel:+5073936333">Llamar ahora</a>
+        </div>
+      </div>
+      <div class="contactos">
+        <div><span class="contacto__k">Teléfono</span><a class="contacto__v" href="tel:+5073936333">+507 393-6333</a></div>
+        <div><span class="contacto__k">Correo</span><a class="contacto__v" href="mailto:info@coffeevending.com.pa">info@coffeevending.com.pa</a></div>
+        <div><span class="contacto__k">Oficina</span><span class="contacto__v">Galera 26, Panamá Viejo Business Center</span></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="pie">
+  <div class="wrap pie__in">
+    <div>
+      <a class="marca marca--pie" href="#inicio">Coffee<em>&amp;</em>Vending</a>
+      <p class="pie__linea">Servicios de alimentos y bebidas para organizaciones en Panamá, desde 2002.</p>
+    </div>
+    <nav class="pie__nav" aria-label="Pie de página">
+      <a href="#servicios">Servicios</a>
+      <a href="#proceso">Cómo trabajamos</a>
+      <a href="#cobertura">Cobertura</a>
+      <a href="#recursos">Recursos</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </div>
+  <div class="wrap pie__legal">
+    <p>
+      <strong>Esta página es una propuesta de rediseño</strong> preparada por
+      <a href="https://novahweb.com" rel="noopener">NovahWeb</a>. No es el sitio oficial de
+      Coffee&nbsp;&amp;&nbsp;Vending Panamá, no está afiliada a la empresa y no recoge datos:
+      el formulario es una demostración. Las fotografías y los datos de contacto son de su sitio
+      público y se muestran solo para ilustrar el diseño.
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
